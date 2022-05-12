@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employeelist")
@@ -21,23 +22,25 @@ public class EmployeeController {
 
     @RequestMapping("/add")
     public boolean add(@RequestParam("id") int id,
+                       @RequestParam("inn") long inn,
                         @RequestParam(name = "firstName") String firstName,
                         @RequestParam(name = "lastName") String lastName) {
-        return employeeBookService.add(id,firstName,lastName);
+
+        return employeeBookService.add(id,inn,firstName,lastName);
     }
 
     @RequestMapping("/remove")
-    public boolean remove(@RequestParam("id") int id){
-        return employeeBookService.remove(id);
+    public boolean remove(@RequestParam("inn") long inn){
+        return employeeBookService.remove(inn);
     }
 
     @RequestMapping("/find")
-    public Employee find(@RequestParam("id") int id) {
-        return employeeBookService.find(id);
+    public Employee find(@RequestParam("inn") long inn) {
+        return employeeBookService.find(inn);
     }
 
     @RequestMapping("/show")
-    public List<Employee> show() {
+    public Map<Long,Employee> show() {
         return employeeBookService.show();
     }
 }
