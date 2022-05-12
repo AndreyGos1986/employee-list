@@ -13,58 +13,50 @@ import java.util.Map;
 
 @Service
 public class EmployeeBookServiceImpl implements EmployeeBook {
-    Map<Long, Employee> employeeBook;
+    Map<String, Employee> employeeBook;
 
 
     public EmployeeBookServiceImpl() {
         employeeBook = new HashMap<>();
     }
 
-    int nextId = 0;
 
     @Override
-    public boolean add(int id, long inn, String firstName, String lastName) { //добавить сотрудника
-        int employeeBookSize = 5;
-        Employee employee = new Employee(inn, toSetId(), firstName, lastName);
-        if (id <= employeeBookSize) {
-            if (!employeeBook.containsKey(inn)) {
-                employeeBook.put(inn, employee);
-                nextId++;
+    public boolean add(String firstName, String lastName) { //добавить сотрудника
+        Employee employee = new Employee(firstName, lastName);
+            if (!employeeBook.containsKey(employee.getFirstAndLastName())) {
+                employeeBook.put(employee.getFirstAndLastName(), employee);
             } else throw new TheEmployeeAlreadyExistsException();
             return true;
-        } else throw new EmployeeIndexOutOfBoundsException();
-    }
+        }
+
 
     @Override
-    public boolean remove(long inn) {
-        if (employeeBook.containsKey(inn)) {
-            nextId--;
-            return employeeBook.remove(inn, employeeBook.get(inn));
+    public boolean remove(String firstName, String lastName) {
+        Employee employee = find(firstName,lastName);
+        if (employeeBook.containsKey(employee.getFirstAndLastName())) {
+                 return employeeBook.remove(employee.getFirstAndLastName(),employee);
         } else throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee find(long inn) { // поиск сотрудника
-        if (employeeBook.containsKey(inn)) {
-            return employeeBook.get(inn);
+    public Employee find(String firstName, String lastName) { // поиск сотрудника
+        Employee employee = new Employee(firstName, lastName);
+        if (employeeBook.containsKey(employee.getFirstAndLastName())) {
+            return employeeBook.get(employee.getFirstAndLastName());
         } else {
             throw new EmployeeNotFoundException();
         }
     }
 
     @Override
-    public Map<Long, Employee> getEmployeeBook() {
+    public Map<String, Employee> getEmployeeBook() {
         return null;
     }
 
-    public Map<Long, Employee> show() {
+    public Map<String, Employee> show() {
         return employeeBook;
     }
 
-    private int toSetId() {
-        int res = nextId;
-        nextId = nextId + 1;
-        return res;
-    }
-
 }
+

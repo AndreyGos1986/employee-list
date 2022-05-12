@@ -21,26 +21,25 @@ public class EmployeeController {
     }
 
     @RequestMapping("/add")
-    public boolean add(@RequestParam("id") int id,
-                       @RequestParam("inn") long inn,
-                        @RequestParam(name = "firstName") String firstName,
+    public boolean add( @RequestParam(name = "firstName") String firstName,
                         @RequestParam(name = "lastName") String lastName) {
-
-        return employeeBookService.add(id,inn,firstName,lastName);
+        return employeeBookService.add(firstName,lastName);
     }
 
     @RequestMapping("/remove")
-    public boolean remove(@RequestParam("inn") long inn){
-        return employeeBookService.remove(inn);
+    public boolean remove(@RequestParam(name = "firstName") String firstName,
+                          @RequestParam(name = "lastName") String lastName){
+        return employeeBookService.remove(firstName,lastName);
     }
 
     @RequestMapping("/find")
-    public Employee find(@RequestParam("inn") long inn) {
-        return employeeBookService.find(inn);
+    public Employee find(@RequestParam(name = "firstName") String firstName,
+                         @RequestParam(name = "lastName") String lastName) {
+        return employeeBookService.find(firstName,lastName);
     }
 
     @RequestMapping("/show")
-    public Map<Long,Employee> show() {
+    public Map<String,Employee> show() {
         return employeeBookService.show();
     }
 }
