@@ -22,8 +22,11 @@ public class EmployeeController {
 
     @RequestMapping("/add")
     public boolean add( @RequestParam(name = "firstName") String firstName,
-                        @RequestParam(name = "lastName") String lastName) {
-        return employeeBookService.add(firstName,lastName);
+                        @RequestParam(name = "lastName") String lastName,
+                        @RequestParam(name = "salary") double salary,
+                        @RequestParam(name = "deptNum") int deptNum
+    ) {
+        return employeeBookService.add(firstName,lastName,salary,deptNum);
     }
 
     @RequestMapping("/remove")
@@ -37,6 +40,7 @@ public class EmployeeController {
                          @RequestParam(name = "lastName") String lastName) {
         return employeeBookService.find(firstName,lastName);
     }
+
 
     @RequestMapping("/show")
     public Map<String,Employee> show() {

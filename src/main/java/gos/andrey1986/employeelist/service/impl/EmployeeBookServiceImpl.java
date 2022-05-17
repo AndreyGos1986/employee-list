@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeBookServiceImpl implements EmployeeBook {
@@ -22,8 +24,8 @@ public class EmployeeBookServiceImpl implements EmployeeBook {
 
 
     @Override
-    public boolean add(String firstName, String lastName) { //добавить сотрудника
-        Employee employee = new Employee(firstName, lastName);
+    public boolean add(String firstName, String lastName,double salary,int deptNum) { //добавить сотрудника
+        Employee employee = new Employee(firstName, lastName,salary,deptNum);
             if (!employeeBook.containsKey(employee.getFirstAndLastName())) {
                 employeeBook.put(employee.getFirstAndLastName(), employee);
             } else throw new TheEmployeeAlreadyExistsException();
@@ -32,7 +34,7 @@ public class EmployeeBookServiceImpl implements EmployeeBook {
 
 
     @Override
-    public boolean remove(String firstName, String lastName) {
+    public boolean remove(String firstName, String lastName) { // удалить сотрудника
         Employee employee = find(firstName,lastName);
         if (employeeBook.containsKey(employee.getFirstAndLastName())) {
                  return employeeBook.remove(employee.getFirstAndLastName(),employee);
@@ -40,7 +42,7 @@ public class EmployeeBookServiceImpl implements EmployeeBook {
     }
 
     @Override
-    public Employee find(String firstName, String lastName) { // поиск сотрудника
+    public Employee find(String firstName, String lastName) { // найти сотрудника
         Employee employee = new Employee(firstName, lastName);
         if (employeeBook.containsKey(employee.getFirstAndLastName())) {
             return employeeBook.get(employee.getFirstAndLastName());
@@ -51,7 +53,7 @@ public class EmployeeBookServiceImpl implements EmployeeBook {
 
     @Override
     public Map<String, Employee> getEmployeeBook() {
-        return null;
+        return employeeBook;
     }
 
     public Map<String, Employee> show() {
