@@ -3,7 +3,7 @@ package gos.andrey1986.employeelist.service.impl;
 import gos.andrey1986.employeelist.data.Employee;
 import gos.andrey1986.employeelist.exceptions.EmployeeNotFoundException;
 import gos.andrey1986.employeelist.exceptions.TheEmployeeAlreadyExistsException;
-import gos.andrey1986.employeelist.service.EmployeeBook;
+import gos.andrey1986.employeelist.service.EmployeeBookService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class EmployeeBookServiceImpl implements EmployeeBook {
+public class EmployeeBookServiceImpl implements EmployeeBookService {
     Map<String, Employee> employeeBook;
 
 

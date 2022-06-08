@@ -2,16 +2,15 @@ package gos.andrey1986.employeelist.service.impl;
 
 import gos.andrey1986.employeelist.data.Employee;
 import gos.andrey1986.employeelist.exceptions.EmployeeNotFoundException;
-import gos.andrey1986.employeelist.service.EmployeeBookDeptNum;
+import gos.andrey1986.employeelist.service.EmployeeBookServDept;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeBookServByDeptImpl implements EmployeeBookDeptNum {
+public class EmployeeBookServByDeptImpl implements EmployeeBookServDept {
     private final EmployeeBookServiceImpl employeeBookService;
 
     public EmployeeBookServByDeptImpl(EmployeeBookServiceImpl employeeBookService) {
@@ -21,10 +20,14 @@ public class EmployeeBookServByDeptImpl implements EmployeeBookDeptNum {
 
     @Override
     public List<Employee> getAll() {
-        return employeeBookService.getEmployeeBook()
-                .values()
-                .stream()
-                .collect(Collectors.toList());
+        if (employeeBookService.getEmployeeBook().isEmpty()) {
+            throw new EmployeeNotFoundException();
+        } else {
+            return employeeBookService.getEmployeeBook()
+                    .values()
+                    .stream()
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override
