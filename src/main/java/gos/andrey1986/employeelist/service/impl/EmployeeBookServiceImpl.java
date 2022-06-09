@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Service
 public class EmployeeBookServiceImpl implements EmployeeBookService {
-    Map<String, Employee> employeeBook;
+    private final Map<String, Employee> employeeBook;
 
 
     public EmployeeBookServiceImpl() {
@@ -26,7 +26,7 @@ public class EmployeeBookServiceImpl implements EmployeeBookService {
 
         if (!StringUtils.isAlpha(employee.getFirstName())
                 || !StringUtils.isAlpha(employee.getLastName())) {
-            throw new TheEmployeeAlreadyExistsException();
+            throw new IllegalArgumentException("Введены неверные данные");
 
         } else if (!StringUtils.isAllBlank(employee.getFirstName())
                 && !StringUtils.isAllBlank(employee.getLastName())
@@ -45,7 +45,9 @@ public class EmployeeBookServiceImpl implements EmployeeBookService {
         Employee employee = find(firstName, lastName);
         if (employeeBook.containsKey(employee.getFirstAndLastName())) {
             return employeeBook.remove(employee.getFirstAndLastName(), employee);
-        } else throw new EmployeeNotFoundException();
+        } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     @Override
@@ -60,10 +62,6 @@ public class EmployeeBookServiceImpl implements EmployeeBookService {
 
     @Override
     public Map<String, Employee> getEmployeeBook() {
-        return employeeBook;
-    }
-
-    public Map<String, Employee> show() {
         return employeeBook;
     }
 

@@ -41,7 +41,7 @@ class EmployeeBookServDeptTest {
     }
 
     @Test
-    void shouldfindEmployeeWithMinSalByDeptnumAndReturnList() {
+    void shouldfindEmployeeWithMinSalByDeptnum() {
         when(employeeBookServiceMock.getEmployeeBook())
                 .thenReturn(EMPLOYEES_MAP_OF_ONE_DEPT);
         Employee actual = out.findEmplWithMinSalByDeptnum(DEPT_NUM);
@@ -55,7 +55,7 @@ class EmployeeBookServDeptTest {
                 .thenReturn(EMPLOYEES_MAP_OF_ONE_DEPT);
         List<Employee> expected = LIST_OF_EMPLOYEES_IN_ONE_DEPT;
         List<Employee> actual = out.findEmployeesByDeptNum(DEPT_NUM);
-        assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
+        assertEquals(expected,actual);
     }
 
     @Test
@@ -64,7 +64,7 @@ class EmployeeBookServDeptTest {
                 .thenReturn(ALL_EMPLOYEES_MAP);
         List<Employee> expected = LIST_OF_ALL_EMPLOYEES;
         List<Employee> actual = out.getAll();
-        assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
+        assertEquals(expected,actual);
     }
 
     @Test

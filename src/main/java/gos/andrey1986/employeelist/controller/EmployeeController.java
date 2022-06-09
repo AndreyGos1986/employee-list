@@ -2,6 +2,7 @@ package gos.andrey1986.employeelist.controller;
 
 
 import gos.andrey1986.employeelist.data.Employee;
+import gos.andrey1986.employeelist.service.EmployeeBookService;
 import gos.andrey1986.employeelist.service.impl.EmployeeBookServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +14,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/employeelist")
 public class EmployeeController {
-    private final EmployeeBookServiceImpl employeeBookService;
+    private final EmployeeBookService employeeBookService;
 
 
-    public EmployeeController(EmployeeBookServiceImpl employeeService) {
+    public EmployeeController(EmployeeBookService employeeService) {
         this.employeeBookService  = employeeService;
     }
 
@@ -44,6 +45,6 @@ public class EmployeeController {
 
     @RequestMapping("/show")
     public Map<String,Employee> show() {
-        return employeeBookService.show();
+        return employeeBookService.getEmployeeBook();
     }
 }

@@ -5,19 +5,17 @@ import gos.andrey1986.employeelist.exceptions.EmployeeNotFoundException;
 import gos.andrey1986.employeelist.exceptions.TheEmployeeAlreadyExistsException;
 import gos.andrey1986.employeelist.service.impl.EmployeeBookServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+
 
 import static gos.andrey1986.employeelist.constant.EmployeeBookServiceTestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@ExtendWith(MockitoExtension.class)
+
 class EmployeeBookServiceTest {
 
-    @InjectMocks
-    private EmployeeBookServiceImpl out;
+
+    private final EmployeeBookServiceImpl out = new EmployeeBookServiceImpl();
 
 
     @Test

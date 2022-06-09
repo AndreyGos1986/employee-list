@@ -10,7 +10,6 @@ public class EmployeeBookServiceTestConstants {
     public static final String LAST_NAME="SomeSurname";
     public static final double SALARY=100.00;
     public static final Integer DEPT_NUM=11;
-    public static final String MAP_KEY = FIRST_NAME+""+LAST_NAME;
     public static final Employee EMPLOYEE = new Employee(FIRST_NAME,LAST_NAME,SALARY,DEPT_NUM);
 
 }

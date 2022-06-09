@@ -2,7 +2,8 @@ package gos.andrey1986.employeelist.service.impl;
 
 import gos.andrey1986.employeelist.data.Employee;
 import gos.andrey1986.employeelist.exceptions.EmployeeNotFoundException;
-import gos.andrey1986.employeelist.service.EmployeeBookServDept;
+import gos.andrey1986.employeelist.service.EmployeeBookServByDept;
+import gos.andrey1986.employeelist.service.EmployeeBookService;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -10,17 +11,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeBookServByDeptImpl implements EmployeeBookServDept {
-    private final EmployeeBookServiceImpl employeeBookService;
+public class EmployeeBookServByDeptImpl implements EmployeeBookServByDept {
+    private final EmployeeBookService employeeBookService;
 
-    public EmployeeBookServByDeptImpl(EmployeeBookServiceImpl employeeBookService) {
+    public EmployeeBookServByDeptImpl(EmployeeBookService employeeBookService) {
         this.employeeBookService = employeeBookService;
     }
 
 
     @Override
     public List<Employee> getAll() {
-        if (employeeBookService.getEmployeeBook().isEmpty()) {
+        boolean isEmpty = employeeBookService.getEmployeeBook().isEmpty();
+        if (isEmpty) {
             throw new EmployeeNotFoundException();
         } else {
             return employeeBookService.getEmployeeBook()
@@ -36,8 +38,7 @@ public class EmployeeBookServByDeptImpl implements EmployeeBookServDept {
                 .values()
                 .stream()
                 .filter(emp -> emp.getDeptNum().equals(deptNum))
-                .collect(Collectors.toList())
-                .stream().max(Comparator.comparingDouble(Employee::getSalary))
+                .max(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
@@ -46,8 +47,7 @@ public class EmployeeBookServByDeptImpl implements EmployeeBookServDept {
                 .values()
                 .stream()
                 .filter(employee -> employee.getDeptNum().equals(deptNum))
-                .collect(Collectors.toList())
-                .stream().min(Comparator.comparingDouble(Employee::getSalary))
+                .min(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
